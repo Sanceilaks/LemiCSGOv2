@@ -91,11 +91,15 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\VSP\LemiCSGOv2\src;C:\VSP\LemiCSGOv2\deps\minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>C:\VSP\LemiCSGOv2\deps\minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libMinHook-x86-v141-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,6 +129,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\VSP\LemiCSGOv2\src;C:\VSP\LemiCSGOv2\deps\minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,6 +137,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>C:\VSP\LemiCSGOv2\deps\minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libMinHook-x86-v141-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,20 +163,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="command_executor.cpp" />
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="hack_core.cpp" />
-    <ClCompile Include="interfaces.cpp" />
-    <ClCompile Include="mem_tools.cpp" />
+    <ClCompile Include="src\command_executor.cpp" />
+    <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\hack_core.cpp" />
+    <ClCompile Include="src\hooks\create_move_hook.cpp" />
+    <ClCompile Include="src\hooks\hook_manager.cpp" />
+    <ClCompile Include="src\interfaces.cpp" />
+    <ClCompile Include="src\math\vector.cpp" />
+    <ClCompile Include="src\math\vector2d.cpp" />
+    <ClCompile Include="src\math\vector4d.cpp" />
+    <ClCompile Include="src\math\v_matrix.cpp" />
+    <ClCompile Include="src\tools\mem_tools.cpp" />
+    <ClCompile Include="src\tools\netvars.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="command_executor.h" />
-    <ClInclude Include="hack_core.h" />
-    <ClInclude Include="game_interfaces\ivengineclient.h" />
-    <ClInclude Include="include_all_interfaces.h" />
-    <ClInclude Include="interfaces.h" />
-    <ClInclude Include="mem_tools.h" />
-    <ClInclude Include="singleton.h" />
+    <ClInclude Include="src\command_executor.h" />
+    <ClInclude Include="src\game_interfaces\i_client_mode.h" />
+    <ClInclude Include="src\game_interfaces\v_client_entity_list.h" />
+    <ClInclude Include="src\game_sdk\classes\c_client_class.h" />
+    <ClInclude Include="src\game_sdk\classes\c_user_cmd.h" />
+    <ClInclude Include="src\game_sdk\entitys.h" />
+    <ClInclude Include="src\game_sdk\entitys\base_entity.h" />
+    <ClInclude Include="src\game_sdk\entitys\base_player.h" />
+    <ClInclude Include="src\game_sdk\entitys\i_client_entity.h" />
+    <ClInclude Include="src\game_sdk\fnv.h" />
+    <ClInclude Include="src\game_sdk\network\recv_props.h" />
+    <ClInclude Include="src\hack_core.h" />
+    <ClInclude Include="src\game_interfaces\iv_engine_client.h" />
+    <ClInclude Include="src\hooks\create_move_hook.h" />
+    <ClInclude Include="src\hooks\hooks.h" />
+    <ClInclude Include="src\hooks\hook_manager.h" />
+    <ClInclude Include="src\include_all_interfaces.h" />
+    <ClInclude Include="src\interfaces.h" />
+    <ClInclude Include="src\math\q_angle.h" />
+    <ClInclude Include="src\math\vector.h" />
+    <ClInclude Include="src\math\vector2d.h" />
+    <ClInclude Include="src\math\vector4d.h" />
+    <ClInclude Include="src\math\vertex.h" />
+    <ClInclude Include="src\math\v_matrix.h" />
+    <ClInclude Include="src\tools\mem_tools.h" />
+    <ClInclude Include="src\singleton.h" />
+    <ClInclude Include="src\tools\netvars.h" />
+    <ClInclude Include="src\game_interfaces\v_base_client.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

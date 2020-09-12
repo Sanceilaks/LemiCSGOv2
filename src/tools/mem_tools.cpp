@@ -1,12 +1,12 @@
 #include "mem_tools.h"
 
-abstract_interface CMemTools::getInterface(const char* _module, const char* _interface)
+abstract_interface CMemTools::get_interface(const char* _module, const char* _interface)
 {
 	Interface tempInterface = (Interface)GetProcAddress(GetModuleHandle(_module), "CreateInterface");
 	return (abstract_interface)tempInterface(_interface, 0);
 }
 
-std::uint8_t* CMemTools::patternScaner(const char* module_name, const char* signature) noexcept
+std::uint8_t* CMemTools::pattern_scaner(const char* module_name, const char* signature) noexcept
 {
 	const auto module_handle = GetModuleHandleA(module_name);
 

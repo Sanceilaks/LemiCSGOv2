@@ -14,8 +14,7 @@ bool BeforeInject(HMODULE hModule)
 
 void start()
 {
-    CHackCore::get().init();
-    CInterfaces::get().printInterfaces();
+    CHackCore::init();
 
     std::async(std::launch::async, []() {
         std::string cmd;
