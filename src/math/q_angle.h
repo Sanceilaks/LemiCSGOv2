@@ -4,6 +4,7 @@
 
 
 #include "vector.h"
+#include "math.h"
 
 namespace Math
 {
@@ -24,6 +25,22 @@ namespace Math
         ang.z = 0.0f;
 
     }
+
+	static void Normalize(QAngle& angles)
+	{
+		while (angles.x > 89.f)
+			angles.x -= 180.f;
+
+		while (angles.x < -89.f)
+			angles.x += 180.f;
+
+		while (angles.x > 180.f)
+			angles.x -= 360.f;
+
+		while (angles.x < -180.f)
+			angles.x += 360.f;
+	}
+
 	static float AngleNormalize(float angle)
 	{
 		angle = fmodf(angle, 360.0f);
@@ -78,6 +95,20 @@ namespace Math
 					   RadiansToDegrees(atan2f(delta.y, delta.x)) - viewAngles.y, 0 };
 		ClampAngles(angles);
 		return angles;
+	}
+
+	static Math::CVector CalcAngel(QAngle src, QAngle dst)
+	{
+		auto ret = QAngle();
+		Math::CVector delta = src - dst;
+		double hyp = delta.Length2D();
+		ret.y = (atan(delta.y / delta.x) * 57.295779513082f);
+		ret.x = (atan(delta.z / hyp) * 57.295779513082f);
+		ret.z = 0.f;
+
+		if (delta.x >= 0.f)
+			ret.y += 180.f;
+		return ret;
 	}
 }
 #pragma warning( pop )

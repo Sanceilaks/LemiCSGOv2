@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <vector>
+#include <string>
 
 namespace Math
 {
@@ -42,6 +43,16 @@ namespace Math
 		// equality
 		bool operator==(const CVector& v) const;
 		bool operator!=(const CVector& v) const;
+
+		//Math operations
+		void Clamp();
+		CVector Clamped() const;
+
+		const std::string& parse()
+		{
+			return std::string("x = ") + std::to_string(this->x) + std::string("\ty = ") + std::to_string(this->y) +
+				std::string("\tz = ") + std::to_string(this->z);
+		}
 
 		// arithmetic operations
 		CVector& operator+=(const CVector& v) {

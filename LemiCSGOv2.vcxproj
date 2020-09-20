@@ -78,9 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_R</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)_R</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,6 +132,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\VSP\LemiCSGOv2\src;C:\VSP\LemiCSGOv2\deps\minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,6 +156,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -160,14 +164,18 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\command_executor.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\features\esp\esp.cpp" />
+    <ClCompile Include="src\features\legit_bot\legit_bot.cpp" />
     <ClCompile Include="src\hack_core.cpp" />
     <ClCompile Include="src\hooks\create_move_hook.cpp" />
     <ClCompile Include="src\hooks\hook_manager.cpp" />
+    <ClCompile Include="src\hooks\paint_traverse_hook.cpp" />
     <ClCompile Include="src\interfaces.cpp" />
     <ClCompile Include="src\math\vector.cpp" />
     <ClCompile Include="src\math\vector2d.cpp" />
@@ -178,28 +186,38 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\command_executor.h" />
+    <ClInclude Include="src\features\esp\esp.h" />
+    <ClInclude Include="src\features\legit_bot\legit_bot.h" />
     <ClInclude Include="src\game_interfaces\i_client_mode.h" />
+    <ClInclude Include="src\game_interfaces\i_panel.h" />
+    <ClInclude Include="src\game_interfaces\i_surface.h" />
     <ClInclude Include="src\game_interfaces\v_client_entity_list.h" />
+    <ClInclude Include="src\game_sdk\classes\color.h" />
     <ClInclude Include="src\game_sdk\classes\c_client_class.h" />
     <ClInclude Include="src\game_sdk\classes\c_user_cmd.h" />
     <ClInclude Include="src\game_sdk\entitys.h" />
     <ClInclude Include="src\game_sdk\entitys\base_entity.h" />
+    <ClInclude Include="src\game_sdk\entitys\base_items.h" />
     <ClInclude Include="src\game_sdk\entitys\base_player.h" />
     <ClInclude Include="src\game_sdk\entitys\i_client_entity.h" />
+    <ClInclude Include="src\game_sdk\entitys\local_player.h" />
     <ClInclude Include="src\game_sdk\fnv.h" />
     <ClInclude Include="src\game_sdk\network\recv_props.h" />
+    <ClInclude Include="src\globals.h" />
     <ClInclude Include="src\hack_core.h" />
     <ClInclude Include="src\game_interfaces\iv_engine_client.h" />
     <ClInclude Include="src\hooks\create_move_hook.h" />
     <ClInclude Include="src\hooks\hooks.h" />
     <ClInclude Include="src\hooks\hook_manager.h" />
+    <ClInclude Include="src\hooks\paint_traverse_hook.h" />
     <ClInclude Include="src\include_all_interfaces.h" />
     <ClInclude Include="src\interfaces.h" />
+    <ClInclude Include="src\math\math.h" />
     <ClInclude Include="src\math\q_angle.h" />
     <ClInclude Include="src\math\vector.h" />
     <ClInclude Include="src\math\vector2d.h" />
     <ClInclude Include="src\math\vector4d.h" />
-    <ClInclude Include="src\math\vertex.h" />
+    <ClInclude Include="src\math\game_math.h" />
     <ClInclude Include="src\math\v_matrix.h" />
     <ClInclude Include="src\tools\mem_tools.h" />
     <ClInclude Include="src\singleton.h" />

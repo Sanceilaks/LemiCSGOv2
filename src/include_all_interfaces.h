@@ -4,3 +4,5 @@
 #include "game_interfaces/v_client_entity_list.h"
 #include "game_interfaces/v_base_client.h"
 #include "game_interfaces/i_client_mode.h"
+#include "game_interfaces/i_panel.h"
+#include "game_interfaces/i_surface.h"

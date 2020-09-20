@@ -61,6 +61,12 @@
     <Filter Include="Sources\HOOKS">
       <UniqueIdentifier>{0f22c6ae-4fb7-4d5a-8e0c-d63fa605ba9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\FEATURES">
+      <UniqueIdentifier>{908a0f76-d245-4a9d-8ff4-fb127190cb69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\FEATURES">
+      <UniqueIdentifier>{3b048ff2-3d51-49f2-bb2a-77f38f9fca90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\interfaces.cpp">
@@ -99,6 +105,15 @@
     <ClCompile Include="src\hooks\hook_manager.cpp">
       <Filter>Sources\HOOKS</Filter>
     </ClCompile>
+    <ClCompile Include="src\features\legit_bot\legit_bot.cpp">
+      <Filter>Sources\FEATURES</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\esp\esp.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\paint_traverse_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces.h">
@@ -135,9 +150,6 @@
       <Filter>Headers\MATH</Filter>
     </ClInclude>
     <ClInclude Include="src\math\vector4d.h">
-      <Filter>Headers\MATH</Filter>
-    </ClInclude>
-    <ClInclude Include="src\math\vertex.h">
       <Filter>Headers\MATH</Filter>
     </ClInclude>
     <ClInclude Include="src\hooks\create_move_hook.h">
@@ -184,6 +196,39 @@
     </ClInclude>
     <ClInclude Include="src\game_sdk\classes\c_user_cmd.h">
       <Filter>Headers\GAME\CLASSES</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\legit_bot\legit_bot.h">
+      <Filter>Headers\FEATURES</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\esp\esp.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\globals.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_sdk\entitys\local_player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\math.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_sdk\entitys\base_items.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interfaces\i_panel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\paint_traverse_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interfaces\i_surface.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_sdk\classes\color.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\game_math.h">
+      <Filter>Headers\MATH</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

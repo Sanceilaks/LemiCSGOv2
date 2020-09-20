@@ -148,6 +148,39 @@ namespace Math
 		return (src.x != x) || (src.y != y) || (src.z != z);
 	}
 
+	//-----------------------------------------------------------------------------
+	// Math
+	//-----------------------------------------------------------------------------
+	void CVector::Clamp()
+	{
+		while (this->x < -180.0f)
+			this->x += 360.0f;
+
+		while (this->x > 180.0f)
+			this->x -= 360.0f;
+
+		if (this->x > 89.0f)
+			this->x = 89.0f;
+
+		if (this->x < -89.0f)
+			this->x = -89.0f;
+
+		while (this->y < -180.0f)
+			this->y += 360.0f;
+
+		while (this->y > 180.0f)
+			this->y -= 360.0f;
+
+		this->z = 0.0f;
+	}
+
+	CVector CVector::Clamped() const
+	{
+		auto vec = *this;
+		vec.Clamp();
+		return vec;
+	}
+
 
 	//-----------------------------------------------------------------------------
 	// Copy

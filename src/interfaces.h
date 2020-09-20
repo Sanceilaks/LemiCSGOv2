@@ -26,6 +26,9 @@ namespace interfaces_names
 	static const char* iv_engine_client = "VEngineClient014";
 	static const char* v_client_entity_list = "VClientEntityList003";
 	static const char* v_base_client = "VClient018";
+	static const char* i_panel = "VGUI_Panel009";
+	static const char* i_surface = "VGUI_Surface031";
+
 }
 
 
@@ -36,6 +39,8 @@ public:
 	ADD_INTERFACE(VClientEntityList, client_entity_list);
 	ADD_INTERFACE(VBaseClient, client);
 	ADD_INTERFACE(IClientMode, client_mode);
+	ADD_INTERFACE(IPanel, i_panel);
+	ADD_INTERFACE(ISurface, i_surface);
 
 	bool init();
 	bool shutdown();
