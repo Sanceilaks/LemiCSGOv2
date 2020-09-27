@@ -6,6 +6,16 @@
 typedef ULONG HFont;
 typedef unsigned int VPANEL;
 
+
+static const wchar_t* get_wc_t(const char* c)
+{
+	const size_t cSize = strlen(c) + 1;
+	wchar_t* wc = new wchar_t[cSize];
+	mbstowcs(wc, c, cSize);
+
+	return wc;
+}
+
 struct IntRect {
     int x0;
     int y0;

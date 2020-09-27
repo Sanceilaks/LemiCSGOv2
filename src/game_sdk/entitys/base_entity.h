@@ -19,14 +19,46 @@ enum ECSPlayerBones {
 	hand_L
 };
 
+class CCollideable
+{
+public:
+	virtual void unknown_0() = 0;
+	virtual Math::vec3_t& mins() = 0;
+	virtual Math::vec3_t& maxs() = 0;
+
+
+
+	//Math::vec3_t& mins_vt()
+	//{
+	//	auto& v = mins();
+	//	Math::vec3_t ret = Math::vec3_t(v.x, v.y, v.z);
+	//	return ret;
+	//}
+
+	//Math::vec3_t& maxs_vt()
+	//{
+	//	auto& v = maxs();
+	//	Math::vec3_t ret = Math::vec3_t(v.x, v.y, v.z);
+	//	return ret;
+	//}
+};
+
+
 class CBaseEntity : public IClientEntity
 {
 public:
 	NETVAR("DT_DynamicProp", "m_bShouldGlow", is_should_glow, bool);
 	NETVAR("DT_BaseEntity", "m_vecOrigin", get_origin, Math::CVector);
+	NETVAR("DT_BaseEntity", "m_vecOrigin", get_origin_vt, Math::vec3_t);
 	NETVAR("DT_BaseEntity", "m_vecAngles", get_angels, Math::CVector);
 	NETVAR("DT_BaseEntity", "m_nModelIndex", get_model_index, int32_t);
 	NETVAR("DT_BaseEntity", "m_iTeamNum", get_team_num, int32_t);
+
+	CCollideable* collideable()
+	{
+		using original_fn = CCollideable * (__thiscall*)(void*);
+		return (*(original_fn**)this)[3](this);
+	}
 
 	bool is_player()
 	{

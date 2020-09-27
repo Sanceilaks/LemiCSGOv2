@@ -4,29 +4,33 @@
 #include <math/q_angle.h>
 #include <math/v_matrix.h>
 
-typedef struct player_info_s
-{
-	__int64         unknown;            //0x0000 
-	union
-	{
-		__int64       steamID64;          //0x0008 - SteamID64
-		struct
-		{
-			__int32     xuid_low;
-			__int32     xuid_high;
-		};
-	};
-	char            szName[128];        //0x0010 - Player Name
-	int             userId;             //0x0090 - Unique Server Identifier
-	char            szSteamID[20];      //0x0094 - STEAM_X:Y:Z
-	char            pad_0x00A8[0x10];   //0x00A8
-	unsigned long   iSteamID;           //0x00B8 - SteamID 
-	char            szFriendsName[128];
-	bool            fakeplayer;
-	bool            ishltv;
-	unsigned int    customfiles[4];
-	unsigned char   filesdownloaded;
+#include <d3d9.h>
+
+typedef struct player_info_s {
+	int64_t __pad0;
+	int xuid_low;
+	int xuid_high;
+	char m_player_name[256];
+	int m_user_id;
+	char m_steam_id[33];
+	unsigned int m_steam3_id;
+	char m_friends_name[256];
+	bool m_is_fake_player;
+	bool m_is_hltv;
+	unsigned int m_custom_files[4];
+	unsigned char m_files_downloaded;
 } player_info_t;
+
+class PlayerInfo {
+public:
+	char           pad_0x0000[0x10]; //0x0000
+	char           szName[32]; //0x0010 
+	char           pad_0x0030[0x64]; //0x0030
+	char           szSteamID[20]; //0x0094 SteamID on text format (STEAM_X:Y:Z)
+	char           pad_0x00A8[0x10]; //0x00A8
+	unsigned long  iSteamID; //0x00B8 
+	char           unknown2[0x14C];
+};
 
 typedef struct InputContextHandle_t__* input_context_handle_t;
 struct client_textmessage_t;

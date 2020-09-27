@@ -6,3 +6,4 @@
 #include "game_interfaces/i_client_mode.h"
 #include "game_interfaces/i_panel.h"
 #include "game_interfaces/i_surface.h"
+#include "game_interfaces/v_debug_overlay.h"

@@ -19,11 +19,15 @@ public:
 		return (CBaseCombatWeapon*)CInterfaces::get().client_entity_list->get_entity_by_handle(this->active_weapon_handle());
 	}
 
-	const std::string& get_name() const
+	bool get_player_info(player_info_t& pinfo)
 	{
 		player_info_t info;
-		CInterfaces::get().engine->get_player_info(this->get_index(), &info);
-		return info.szName;
+		if (CInterfaces::get().engine->get_player_info(this->get_index(), &info))
+		{
+			pinfo = info;
+			return true;
+		}
+		return false;
 	}
 
 	inline bool is_alive() { return this->get_life_state() == 0; }

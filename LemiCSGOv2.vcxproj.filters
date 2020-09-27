@@ -114,6 +114,39 @@
     <ClCompile Include="src\hooks\paint_traverse_hook.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\tools\render_tool.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\end_scane_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\game_math.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\reset_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\menu\menu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\imgui\imgui.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\imgui\imgui_draw.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\imgui\impl\imgui_impl_dx9.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\imgui\impl\imgui_impl_win32.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\imgui\imgui_widgets.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\lock_cursor_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces.h">
@@ -229,6 +262,48 @@
     </ClInclude>
     <ClInclude Include="src\math\game_math.h">
       <Filter>Headers\MATH</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\render_tool.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\end_scane_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interfaces\v_debug_overlay.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\reset_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\menu\menu.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imconfig.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imgui.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imgui_internal.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\impl\imgui_impl_dx9.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\impl\imgui_impl_win32.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imstb_textedit.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imstb_rectpack.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\imgui\imstb_truetype.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\lock_cursor_hook.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

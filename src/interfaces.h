@@ -3,6 +3,7 @@
 #include "include_all_interfaces.h"
 #include "tools/mem_tools.h"
 #include <vector>
+#include <d3d9.h>
 
 #define CIINTERNAL
 
@@ -28,7 +29,7 @@ namespace interfaces_names
 	static const char* v_base_client = "VClient018";
 	static const char* i_panel = "VGUI_Panel009";
 	static const char* i_surface = "VGUI_Surface031";
-
+	static const char* v_debug_overlay = "VDebugOverlay004";
 }
 
 
@@ -41,6 +42,9 @@ public:
 	ADD_INTERFACE(IClientMode, client_mode);
 	ADD_INTERFACE(IPanel, i_panel);
 	ADD_INTERFACE(ISurface, i_surface);
+	ADD_INTERFACE(IDirect3DDevice9, directx_device);
+	ADD_INTERFACE(VDebugOverlay, debug_overlay);
+
 
 	bool init();
 	bool shutdown();

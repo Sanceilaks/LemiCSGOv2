@@ -25,10 +25,6 @@ bool CHackCore::init()
 		return false;
 	CInterfaces::get().print_interfaces();
 
-	G::get().font = CInterfaces::get().i_surface->font_create();
-
-	CInterfaces::get().i_surface->set_font_glyph(G::get().font, "Tahoma", 12, 500, 0, 0, (int)FontFlags::FONTFLAG_DROPSHADOW);
-
 	//console::log("[setup] render initialized!\n");
 
 

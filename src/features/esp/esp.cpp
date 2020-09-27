@@ -4,78 +4,95 @@
 #include <math/game_math.h>
 #include <game_sdk/entitys/local_player.h>
 #include <globals.h>
-
+#include <tools/render_tool.h>
 
 #include <algorithm>
 
 
-//RECT get_box(CBaseEntity* ent)
-//{
-//	RECT recy{};
-//	auto collideable = ent->get_collideable();
-//
-//	
-//}
 
-void draw_filled_rect(std::int32_t x, std::int32_t y, std::int32_t width, std::int32_t height, Color color) 
+bool get_player_box(CBasePlayer* ent, Math::Box& box_in)
 {
-	CInterfaces::get().i_surface->set_drawing_color(color.r(), color.g(), color.b(), color.a());
-	CInterfaces::get().i_surface->draw_filled_rectangle(x, y, width, height);
-}
+	Math::vec3_t origin, min, max, flb, brt, blb, frt, frb, brb, blt, flt;
+	float left, top, right, bottom;
 
-void draw_text(std::int32_t x, std::int32_t y, unsigned long font, std::string text, bool centered, Color color) {
-	const auto surface = CInterfaces::get().i_surface;
-	wchar_t temp[128];
-	int text_width, text_height;
-	if (MultiByteToWideChar(CP_UTF8, 0, text.c_str(), -1, temp, 128) > 0) {
-		surface->draw_text_font(font);
-		if (centered) {
-			surface->get_text_size(font, temp, text_width, text_height);
-			surface->draw_text_pos(x - text_width / 2, y);
-		}
-		else
-			surface->draw_text_pos(x, y);
-		surface->set_text_color(color.r(), color.g(), color.b(), color.a());
-		surface->draw_render_text(temp, wcslen(temp));
-	}
-}
+	origin = ent->get_origin_vt();
+	min = ent->collideable()->mins() + origin;
+	max = ent->collideable()->maxs() + origin;
 
-
-inline void draw_box(CBasePlayer* ent)
-{
-	auto get_box = [](Math::CVector feet, Math::CVector head) -> RECT {
-		RECT ret;
-
-		auto h_ = fabs(head.y - feet.y);
-		auto w_ = h_ / 2.0f;
-
-		ret.left = (feet.x - w_ * 0.5f);
-		ret.right = ((LONG)ret.left + (LONG)w_);
-		ret.bottom = ((LONG)feet.y > (LONG)head.y ? (LONG)(feet.y) : (LONG)(head.y));
-		ret.top = ((LONG)feet.y > (LONG)head.y ? (LONG)(head.y) : (LONG)(feet.y));
-
-		return ret;
+	Math::vec3_t points[] = {
+		Math::vec3_t(min.x, min.y, min.z),
+		Math::vec3_t(min.x, max.y, min.z),
+		Math::vec3_t(max.x, max.y, min.z),
+		Math::vec3_t(max.x, min.y, min.z),
+		Math::vec3_t(max.x, max.y, max.z),
+		Math::vec3_t(min.x, max.y, max.z),
+		Math::vec3_t(min.x, min.y, max.z),
+		Math::vec3_t(max.x, min.y, max.z)
 	};
 
-	CLocalPlayer* local_player = CLocalPlayer::get_local_player();
+	if (!CInterfaces::get().debug_overlay->world_to_screen(points[3], flb) || !CInterfaces::get().debug_overlay->world_to_screen(points[5], brt)
+		|| !CInterfaces::get().debug_overlay->world_to_screen(points[0], blb) || !CInterfaces::get().debug_overlay->world_to_screen(points[4], frt)
+		|| !CInterfaces::get().debug_overlay->world_to_screen(points[2], frb) || !CInterfaces::get().debug_overlay->world_to_screen(points[1], brb)
+		|| !CInterfaces::get().debug_overlay->world_to_screen(points[6], blt) || !CInterfaces::get().debug_overlay->world_to_screen(points[7], flt))
+		return false;
 
-	Math::CVector v_origin = ent->get_origin();
-	Math::CVector v_head = ent->get_entity_bone(head_0);
+	Math::vec3_t arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
 
-	v_head += 15.0f;
+	left = flb.x;
+	top = flb.y;
+	right = flb.x;
+	bottom = flb.y;
 
-	Math::CVector v_screen_origin, v_screen_head;
+	if (left < 0 || top < 0 || right < 0 || bottom < 0)
+		return false;
 
-	if (Math::WorldToScreen(v_head, v_screen_head) && Math::WorldToScreen(v_origin, v_screen_origin))
-	{
-		auto box = get_box(v_screen_origin, v_screen_head);
-
-		float x = box.left; float y = box.top;
-		float w = box.right - box.left; float h = box.bottom - box.top;
-
-		draw_filled_rect(x, y, w, h, Color(255, 0, 0, 100));
-		//draw_text(x, y, G::get().font, ent->get_name(), true, Color::White());
+	for (int i = 1; i < 8; i++) {
+		if (left > arr[i].x)
+			left = arr[i].x;
+		if (bottom < arr[i].y)
+			bottom = arr[i].y;
+		if (right < arr[i].x)
+			right = arr[i].x;
+		if (top > arr[i].y)
+			top = arr[i].y;
 	}
+
+	box_in.x = (int)left;
+	box_in.y = (int)top;
+	box_in.w = int(right - left);
+	box_in.h = int(bottom - top);
+
+	return true;
+}
+
+inline void draw_box(CBasePlayer* ent)
+{	
+	Math::Box box;
+
+	if (!get_player_box(ent, box))
+		return;
+
+	RenderTool::get().draw_border_box(box.x, box.y, box.w, box.h, Color(255, 0, 0));
+}
+
+inline void draw_name(CBasePlayer* ent)
+{
+	Math::Box box;
+
+	get_player_box(ent, box);
+
+	player_info_t pi;
+
+	if (!ent->get_player_info(pi))
+		return;
+
+	int w, h;
+	
+	CInterfaces::get().i_surface->get_text_size(G::get().dFont[12], get_wc_t(pi.m_player_name), w, h);
+
+	//RenderTool::get().draw_filled_box((box.x + w * 0.5) + w - 2, (box.y + box.h) + h + 2, w + 2, h + 2, Color(0, 0, 0, 100));
+
+	RenderTool::get().draw_text(box.x + box.w * 0.5, box.y + box.h, G::get().dFont[12], pi.m_player_name, true, Color::White());
 }
 
 void ESP::draw()
@@ -83,17 +100,16 @@ void ESP::draw()
 	if (!CInterfaces::get().engine->is_in_game())
 		return;
 
-
-	//std::cout << "Getting local_player" << std::endl;
+	if (!G::get().esp->enable)
+		return;
 
 	CLocalPlayer* local_player = CLocalPlayer::get_local_player();
 
 	if (!local_player)
 		return;
 
-	//std::cout << "local_player exist" << std::endl;
 
-	for (size_t i = 0; i <= CInterfaces::get().client_entity_list->get_highest_enetity_index(); ++i)
+	for (size_t i = 1; i <= CInterfaces::get().engine->get_max_clients(); ++i)
 	{
 		CBasePlayer* ply = (CBasePlayer*)CBasePlayer::get_by_index(i);
 
@@ -103,12 +119,12 @@ void ESP::draw()
 		if (ply->get_client_class()->ClassId != class_ids::ccsplayer)
 			continue;
 
-		if (G::get().check_team)
+		if (G::get().esp->check_team)
 			if (ply->get_team_num() == local_player->get_team_num())
 				continue;
 
-		//std::cout << ply << std::endl;
-
 		draw_box(ply);
+
+		draw_name(ply);
 	}
 }

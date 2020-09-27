@@ -124,17 +124,17 @@ namespace Math
 		m[2][2] = vUp.z;
 	}
 
-	inline void VMatrix::GetBasisCVectors(CVector& vForward, CVector& vLeft, CVector& vUp) const {
-		vForward.Init(m[0][0], m[1][0], m[2][0]);
-		vLeft.Init(m[0][1], m[1][1], m[2][1]);
-		vUp.Init(m[0][2], m[1][2], m[2][2]);
-	}
+	//inline void VMatrix::GetBasisCVectors(CVector& vForward, CVector& vLeft, CVector& vUp) const {
+	//	vForward.Init(m[0][0], m[1][0], m[2][0]);
+	//	vLeft.Init(m[0][1], m[1][1], m[2][1]);
+	//	vUp.Init(m[0][2], m[1][2], m[2][2]);
+	//}
 
-	inline void VMatrix::SetBasisCVectors(const CVector& vForward, const CVector& vLeft, const CVector& vUp) {
-		SetForward(vForward);
-		SetLeft(vLeft);
-		SetUp(vUp);
-	}
+	//inline void VMatrix::SetBasisCVectors(const CVector& vForward, const CVector& vLeft, const CVector& vUp) {
+	//	SetForward(vForward);
+	//	SetLeft(vLeft);
+	//	SetUp(vUp);
+	//}
 
 
 	//-----------------------------------------------------------------------------

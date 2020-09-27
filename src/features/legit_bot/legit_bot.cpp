@@ -23,13 +23,13 @@ CBasePlayer* LegitBot::get_closest(Math::QAngle& view_angels)
 			continue;
 
 
-		if (G::get().check_team)
+		if (G::get().aim->check_team)
 			if (ply->get_team_num() == local_player->get_team_num())
 				continue;
 
 		float fov = local_player->get_fov_to_player(view_angels + local_player->get_aim_punch_angel() * 2.f, ply);
 
-		if (fov < best_fov && fov < G::get().fov)
+		if (fov < best_fov && fov < G::get().aim->fov)
 			best_fov = fov, best = ply;
 
 	}
@@ -43,6 +43,9 @@ void LegitBot::work(CUserCmd* ucmd)
 	if (!local_player)
 		return;
 
+	if (!G::get().aim->enable)
+		return;
+
 	Math::QAngle view_angel;
 	CInterfaces::get().engine->get_viewangles(view_angel);
 
@@ -53,7 +56,7 @@ void LegitBot::work(CUserCmd* ucmd)
 
 	Math::QAngle ang = Math::CalcAngel(local_player->get_eye_pos(), best->get_entity_bone((ECSPlayerBones)8)) - local_player->get_aim_punch_angel() * 2;
 
-	smooth(view_angel, ang, G::get().f_smooth);
+	smooth(view_angel, ang, (float)G::get().aim->smooth);
 
 	if (ucmd->viewangles != ang)
 		ucmd->viewangles = ang;

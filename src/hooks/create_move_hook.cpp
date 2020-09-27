@@ -6,6 +6,8 @@
 
 #include <features/legit_bot/legit_bot.h>
 
+#include <features/menu/menu.h>
+
 #define	FL_ONGROUND				(1<<0)
 
 bool __stdcall create_move_hook::hook(int frame_time, CUserCmd* ucmd)
@@ -24,6 +26,9 @@ bool __stdcall create_move_hook::hook(int frame_time, CUserCmd* ucmd)
 
 	if (ucmd->buttons & IN_JUMP && !(local_player->get_flags() & (int)FL_ONGROUND))
 		ucmd->buttons &= ~IN_JUMP;
+
+	if (Menu::get().is_open())
+		ucmd->buttons &= ~IN_ATTACK;
 
     return false;
 }

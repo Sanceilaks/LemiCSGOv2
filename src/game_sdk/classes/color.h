@@ -76,15 +76,15 @@
             return !(operator==(rhs));
         }
 
-        int r() { return _color[0]; }
-        int g() { return _color[1]; }
-        int b() { return _color[2]; }
-        int a() { return _color[3]; }
+        int r() const { return _color[0]; }
+        int g() const { return _color[1]; }
+        int b() const { return _color[2]; }
+        int a() const { return _color[3]; }
 
-        int GetR() { return _color[0]; }
-        int GetG() { return _color[1]; }
-        int GetB() { return _color[2]; }
-        int GetA() { return _color[3]; }
+        int GetR() const { return _color[0]; }
+        int GetG() const { return _color[1]; }
+        int GetB() const { return _color[2]; }
+        int GetA() const { return _color[3]; }
 
         void SetR(uint8_t _i) { _color[0] = _i; }
         void SetG(uint8_t _i) { _color[1] = _i; }
