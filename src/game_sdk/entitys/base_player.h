@@ -7,7 +7,6 @@ class CBasePlayer : public CBaseEntity
 public:
 	NETVAR("DT_BaseEntity", "m_iHealth", get_health, int32_t);
 	NETVAR("DT_CSPlayer", "m_fFlags", get_flags, int);
-	NETVAR("DT_BasePlayer", "m_vecViewOffset[0]", get_view_offset, Math::CVector);
 	NETVAR("DT_BasePlayer", "m_lifeState", get_life_state, bool);
 	NETVAR("DT_BasePlayer", "m_aimPunchAngle", get_aim_punch_angel, Math::QAngle);
 	NETVAR("DT_BasePlayer", "m_viewPunchAngle", get_view_punch_angel, Math::QAngle);
@@ -32,7 +31,5 @@ public:
 
 	inline bool is_alive() { return this->get_life_state() == 0; }
 
-	inline Math::CVector get_eye_pos() { return this->get_origin() + this->get_view_offset(); }
-
-	static inline CBasePlayer* get_local_player() { return (CBasePlayer*)(CBaseEntity::get_by_index(CInterfaces::get().engine->get_local_player())); }
+	static inline CBasePlayer* get_local_player() { return (CBasePlayer*)CBaseEntity::get_local_player(); }
 };

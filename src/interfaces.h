@@ -30,6 +30,7 @@ namespace interfaces_names
 	static const char* i_panel = "VGUI_Panel009";
 	static const char* i_surface = "VGUI_Surface031";
 	static const char* v_debug_overlay = "VDebugOverlay004";
+	static const char* i_engine_trace = "EngineTraceClient004";
 }
 
 
@@ -44,6 +45,7 @@ public:
 	ADD_INTERFACE(ISurface, i_surface);
 	ADD_INTERFACE(IDirect3DDevice9, directx_device);
 	ADD_INTERFACE(VDebugOverlay, debug_overlay);
+	ADD_INTERFACE(IEngineTrace, engine_trace);
 
 
 	bool init();

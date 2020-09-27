@@ -192,3 +192,82 @@ struct vrect_t
 	vrect_t* pnext;
 };
 
+// plane_t structure
+// !!! if this is changed, it must be changed in asm code too !!!
+// FIXME: does the asm code even exist anymore?
+// FIXME: this should move to a different file
+struct cplane_t
+{
+	Math::CVector	normal;
+	float	dist;
+	byte	type;			// for fast side tests
+	byte	signbits;		// signx + (signy<<1) + (signz<<1)
+	byte	pad[2];
+
+#ifdef VECTOR_NO_SLOW_OPERATIONS
+	cplane_t() {}
+
+private:
+	// No copy constructors allowed if we're in optimal mode
+	cplane_t(const cplane_t& vOther);
+#endif
+};
+
+// structure offset for asm code
+#define CPLANE_NORMAL_X			0
+#define CPLANE_NORMAL_Y			4
+#define CPLANE_NORMAL_Z			8
+#define CPLANE_DIST				12
+#define CPLANE_TYPE				16
+#define CPLANE_SIGNBITS			17
+#define CPLANE_PAD0				18
+#define CPLANE_PAD1				19
+
+// 0-2 are axial planes
+#define	PLANE_X			0
+#define	PLANE_Y			1
+#define	PLANE_Z			2
+
+// 3-5 are non-axial planes snapped to the nearest
+#define	PLANE_ANYX		3
+#define	PLANE_ANYY		4
+#define	PLANE_ANYZ		5
+
+
+//-----------------------------------------------------------------------------
+// Frustum plane indices.
+// WARNING: there is code that depends on these values
+//-----------------------------------------------------------------------------
+
+enum
+{
+	FRUSTUM_RIGHT = 0,
+	FRUSTUM_LEFT = 1,
+	FRUSTUM_TOP = 2,
+	FRUSTUM_BOTTOM = 3,
+	FRUSTUM_NEARZ = 4,
+	FRUSTUM_FARZ = 5,
+	FRUSTUM_NUMPLANES = 6
+};
+
+extern int SignbitsForPlane(cplane_t* out);
+
+class Frustum_t
+{
+public:
+	void SetPlane(int i, int nType, const Math::CVector& vecNormal, float dist)
+	{
+		m_Plane[i].normal = vecNormal;
+		m_Plane[i].dist = dist;
+		m_Plane[i].type = nType;
+		m_Plane[i].signbits = SignbitsForPlane(&m_Plane[i]);
+		m_AbsNormal[i].Init(fabs(vecNormal.x), fabs(vecNormal.y), fabs(vecNormal.z));
+	}
+
+	inline const cplane_t* GetPlane(int i) const { return &m_Plane[i]; }
+	inline const Math::CVector& GetAbsNormal(int i) const { return m_AbsNormal[i]; }
+
+private:
+	cplane_t	m_Plane[FRUSTUM_NUMPLANES];
+	Math::CVector		m_AbsNormal[FRUSTUM_NUMPLANES];
+};
