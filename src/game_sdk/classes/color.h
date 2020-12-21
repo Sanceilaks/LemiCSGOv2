@@ -19,6 +19,12 @@
         Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
             SetColor(r, g, b, a);
         }
+        Color(float color[4]) {
+            SetColor(color[0] * 255, color[1] * 255, color[2] * 255, color[3] * 255);
+        }
+        Color(int color[4]) {
+            SetColor(color[0], color[1], color[2], color[3]);
+        }
         void SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0) {
             _color[0] = (uint8_t)r;
             _color[1] = (uint8_t)g;

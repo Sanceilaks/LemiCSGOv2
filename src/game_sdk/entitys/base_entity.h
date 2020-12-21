@@ -2,7 +2,7 @@
 #include "i_client_entity.h"
 #include <tools/netvars.h>
 #include <cstdint>
-#include "interfaces.h"
+#include <interfaces.h>
 
 
 enum ECSPlayerBones {
@@ -80,7 +80,7 @@ public:
 		return (CBaseEntity*)(CInterfaces::get().client_entity_list->get_entity_by_index(index));
 	}
 
-	const Math::CVector& get_entity_bone(ECSPlayerBones Bone)
+	const Math::CVector& get_entity_bone(int Bone)
 	{
 		Math::matrix3x4_t boneMatrix[128];
 
@@ -94,20 +94,18 @@ public:
 
 	bool is_visible(CBaseEntity* from)
 	{
-		auto local_player = CBaseEntity::get_local_player();
-
-
 		Ray_t ray;
 		trace_t tr;
 		CTraceFilter filter;
-		filter.pSkip = this;
+		filter.pSkip = from;
 
 		Math::CVector eye_pos = from->get_eye_pos();
 		Math::CVector end_pos = this->get_eye_pos();
 
 		ray.Init(eye_pos, end_pos);
 
-		CInterfaces::get().engine_trace->TraceRay(ray, 0x46004003, &filter, &tr);
+		CInterfaces::get().engine_trace->TraceRay(ray, MASK_SHOT | CONTENTS_GRATE, &filter, &tr);
+
 
 		if (tr.hit_entity == this || tr.fraction >= 0.98f)
 			return true;

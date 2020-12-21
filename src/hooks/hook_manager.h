@@ -11,6 +11,8 @@ public:
 	end_scane_hook::fn end_scane_original = nullptr;
 	reset_hook::fn reset_original = nullptr;
 	lock_cursor_hook::fn lock_cursor_original = nullptr;
+	frame_stage_notify_hook::fn frame_stage_notify_original = nullptr;
+	override_view_hook::fn override_view_original = nullptr;
 
 	bool setup();
 	void remove();

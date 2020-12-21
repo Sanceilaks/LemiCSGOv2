@@ -65,22 +65,14 @@ bool get_player_box(CBasePlayer* ent, Math::Box& box_in)
 	return true;
 }
 
-inline void draw_box(CBasePlayer* ent)
+inline void draw_box(CBasePlayer* ent, Math::Box box)
 {	
-	Math::Box box;
-
-	if (!get_player_box(ent, box))
-		return;
-
-	RenderTool::get().draw_border_box(box.x, box.y, box.w, box.h, Color(255, 0, 0));
+	Color col = ent->is_visible(CBasePlayer::get_local_player()) ? Color(G::get().player->visible_color) : Color(G::get().player->unvisible_color);
+	RenderTool::get().draw_border_box(box.x, box.y, box.w, box.h, col);
 }
 
-inline void draw_name(CBasePlayer* ent)
+inline void draw_name(CBasePlayer* ent, Math::Box box)
 {
-	Math::Box box;
-
-	get_player_box(ent, box);
-
 	player_info_t pi;
 
 	if (!ent->get_player_info(pi))
@@ -88,19 +80,19 @@ inline void draw_name(CBasePlayer* ent)
 
 	int w, h;
 	
-	CInterfaces::get().i_surface->get_text_size(G::get().dFont[12], get_wc_t(pi.m_player_name), w, h);
+	CInterfaces::get().i_surface->get_text_size(G::get().fonts->dFont[12], get_wc_t(pi.m_player_name), w, h);
 
 	//RenderTool::get().draw_filled_box((box.x + w * 0.5) + w - 2, (box.y + box.h) + h + 2, w + 2, h + 2, Color(0, 0, 0, 100));
 
-	RenderTool::get().draw_text(box.x + box.w * 0.5, box.y + box.h, G::get().dFont[12], pi.m_player_name, true, Color::White());
+	RenderTool::get().draw_text(box.x + box.w * 0.5, box.y + box.h, G::get().fonts->dFont[12], pi.m_player_name, true, Color::White());
 }
 
 void ESP::draw()
 {
-	if (!CInterfaces::get().engine->is_in_game())
+	if (!G::get().player->esp_enable)
 		return;
 
-	if (!G::get().esp->enable)
+	if (!CInterfaces::get().engine->is_in_game())
 		return;
 
 	CLocalPlayer* local_player = CLocalPlayer::get_local_player();
@@ -109,7 +101,7 @@ void ESP::draw()
 		return;
 
 
-	for (size_t i = 1; i <= CInterfaces::get().engine->get_max_clients(); ++i)
+	for (int i = 1; i <= CInterfaces::get().engine->get_max_clients(); ++i)
 	{
 		CBasePlayer* ply = (CBasePlayer*)CBasePlayer::get_by_index(i);
 
@@ -119,12 +111,17 @@ void ESP::draw()
 		if (ply->get_client_class()->ClassId != class_ids::ccsplayer)
 			continue;
 
-		if (G::get().esp->check_team)
+		if (G::get().player->esp_check_team)
 			if (ply->get_team_num() == local_player->get_team_num())
 				continue;
 
-		draw_box(ply);
+		Math::Box box;
 
-		draw_name(ply);
+		if (!get_player_box(ply, box))
+			continue;
+
+		draw_box(ply, box);
+
+		draw_name(ply, box);
 	}
 }

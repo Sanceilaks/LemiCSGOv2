@@ -1,7 +1,7 @@
 #pragma once
-#include "singleton.h"
-#include "include_all_interfaces.h"
-#include "tools/mem_tools.h"
+#include <singleton.h>
+#include <include_all_interfaces.h>
+#include <tools/mem_tools.h>
 #include <vector>
 #include <d3d9.h>
 
@@ -31,6 +31,7 @@ namespace interfaces_names
 	static const char* i_surface = "VGUI_Surface031";
 	static const char* v_debug_overlay = "VDebugOverlay004";
 	static const char* i_engine_trace = "EngineTraceClient004";
+	static const char* i_game_event_manager = "GAMEEVENTSMANAGER002";
 }
 
 
@@ -46,7 +47,7 @@ public:
 	ADD_INTERFACE(IDirect3DDevice9, directx_device);
 	ADD_INTERFACE(VDebugOverlay, debug_overlay);
 	ADD_INTERFACE(IEngineTrace, engine_trace);
-
+	ADD_INTERFACE(IGameEventManager, game_event_manager);
 
 	bool init();
 	bool shutdown();

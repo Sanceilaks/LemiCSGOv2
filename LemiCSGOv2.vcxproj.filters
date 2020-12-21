@@ -147,6 +147,18 @@
     <ClCompile Include="src\hooks\lock_cursor_hook.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\hooks\frame_stage_notify_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\events\events_listeners.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\override_view_hook.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\menu\custom_widgets.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces.h">
@@ -303,6 +315,27 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="src\hooks\lock_cursor_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interfaces\i_engine_trace.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\frame_stage_notify_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_interfaces\i_event_manager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\events\events_listeners.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_sdk\classes\c_view_setup.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\override_view_hook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\menu\custom_widgets.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

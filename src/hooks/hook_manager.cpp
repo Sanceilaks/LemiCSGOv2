@@ -14,7 +14,8 @@ bool HookManager::setup()
     const auto end_scane_target = reinterpret_cast<void*>(get_virtual(CInterfaces::get().directx_device, 42));
     const auto reset_target = reinterpret_cast<void*>(get_virtual(CInterfaces::get().directx_device, 16));
     const auto lock_cursor_target = reinterpret_cast<void*>(get_virtual(CInterfaces::get().i_surface, 67));
-    
+    const auto frame_stage_notify_target = reinterpret_cast<void*>(get_virtual(CInterfaces::get().client, 37));
+    const auto override_view_target = reinterpret_cast<void*>(get_virtual(CInterfaces::get().client_mode, 18));
 
     if (MH_Initialize() != MH_OK)
         return false;
@@ -33,6 +34,12 @@ bool HookManager::setup()
 
     if (MH_CreateHook(lock_cursor_target, &lock_cursor_hook::hook, reinterpret_cast<void**>(&this->lock_cursor_original)) != MH_OK)
     { std::cout << "lock_cursor" << " setup error\n"; return false; }
+
+    if (MH_CreateHook(frame_stage_notify_target, &frame_stage_notify_hook::hook, reinterpret_cast<void**>(&this->frame_stage_notify_original)) != MH_OK)
+    { std::cout << "frame_stage_notify" << " setup error\n"; return false; }    
+    
+    if (MH_CreateHook(override_view_target, &override_view_hook::hook, reinterpret_cast<void**>(&this->override_view_original)) != MH_OK)
+    { std::cout << "override_view" << " setup error\n"; return false; }
 
     if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
         return false;

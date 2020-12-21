@@ -65,3 +65,26 @@ void RenderTool::create_font(std::vector<ULONG>& in, const char* font, int max_s
 
 	in = out;
 }
+
+void ImRender::init()
+{
+	create_font_from_file(G::get().fonts->im_fonts->dFont, "C:\\Windows\\Fonts\\Calibri.ttf", 30);
+}
+
+void ImRender::render_frame()
+{
+}
+
+void ImRender::create_font_from_file(std::vector<ImFont*>& in, const char* font, int max_size, const ImWchar* glyph_ranges, const ImFontConfig* font_cfg)
+{
+	std::vector<ImFont*> out;
+	ImGuiIO& io = ImGui::GetIO();
+
+	for (int i = 1; i <= max_size; ++i)
+	{
+		auto add = io.Fonts->AddFontFromFileTTF(font, i, font_cfg, glyph_ranges);
+		out.push_back(add);
+	}
+
+	in.swap(out);
+}

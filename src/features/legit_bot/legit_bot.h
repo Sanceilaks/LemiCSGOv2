@@ -10,7 +10,7 @@ class LegitBot : public Singleton<LegitBot>
 private:
 	CBasePlayer* targeted = nullptr;
 
-	CBasePlayer* get_closest(Math::QAngle & view_angels);
+	CBasePlayer* get_closest(CUserCmd* ucmd);
 public:
 	void work(CUserCmd* ucmd);
 

@@ -9,6 +9,7 @@ bool CInterfaces::init()
 	INIT_INTERFACE(ISurface, i_surface, "vguimatsurface.dll", interfaces_names::i_surface);
 	INIT_INTERFACE(VDebugOverlay, debug_overlay, "engine.dll", interfaces_names::v_debug_overlay);
 	INIT_INTERFACE(IEngineTrace, engine_trace, "engine.dll", interfaces_names::i_engine_trace);
+	INIT_INTERFACE(IGameEventManager, game_event_manager, "engine.dll", interfaces_names::i_game_event_manager);
 
 	do { this->client_mode = **(IClientMode***)((*(uintptr_t**)this->client)[10] + 0x5); } while (!this->client_mode);
 
@@ -28,4 +29,5 @@ void CInterfaces::print_interfaces()
 	PRINT_INTERFACE(this->directx_device, "DX");
 	PRINT_INTERFACE(this->debug_overlay, "VDebugOverlay");
 	PRINT_INTERFACE(this->engine_trace, "EngineTrace");
+	PRINT_INTERFACE(this->game_event_manager, "EventManager");
 }

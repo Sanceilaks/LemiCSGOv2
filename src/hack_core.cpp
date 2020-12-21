@@ -2,6 +2,7 @@
 #include "interfaces.h"
 #include "hooks/hook_manager.h"
 #include "globals.h"
+#include "features/events/events_listeners.h"
 
 
 bool CHackCore::init()
@@ -25,14 +26,14 @@ bool CHackCore::init()
 		return false;
 	CInterfaces::get().print_interfaces();
 
-	//console::log("[setup] render initialized!\n");
-
-
 	std::cout << "\n[L]\tHooking functions" << std::flush;
 	if (HookManager::get().setup())
 		std::cout << "\tOK!" << std::endl;
 	else
 		return false;
+
+	EventsListeners::get().init();
+	
 
 	//if (this->fnPostInit_ != nullptr && !this->fnPostInit_())
 		//return false;
@@ -41,5 +42,8 @@ bool CHackCore::init()
 
 bool CHackCore::shutdown()
 {
+	FreeConsole();
+	HookManager::get().remove();
+	FreeLibraryAndExitThread((HMODULE)this->dll, 0);
 	return false;
 }

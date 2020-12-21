@@ -11,7 +11,7 @@ public:
 	NETVAR("DT_BasePlayer", "m_aimPunchAngle", get_aim_punch_angel, Math::QAngle);
 	NETVAR("DT_BasePlayer", "m_viewPunchAngle", get_view_punch_angel, Math::QAngle);
 	NETVAR("DT_BaseCombatCharacter", "m_hActiveWeapon", active_weapon_handle, uintptr_t);
-
+	NETVAR("DT_CSPlayer", "m_bIsScoped", is_scoped, bool);
 
 	CBaseCombatWeapon* get_active_weapon()
 	{

@@ -15,6 +15,8 @@
 #include <globals.h>
 #include <features/menu/menu.h>
 
+#include <hack_core.h>
+
 static bool is_init = false;
 static WNDPROC wnd_proc = nullptr;
 
@@ -24,6 +26,8 @@ LRESULT STDMETHODCALLTYPE my_wndproc(HWND window, UINT message_type, WPARAM w_pa
     {
         if (w_param == VK_INSERT)
             Menu::get().trigger();
+        if (w_param == VK_DELETE)
+            CHackCore::get().shutdown();
     }
 
     if (ImGui_ImplWin32_WndProcHandler(window, message_type, w_param, l_param) && Menu::get().is_open())
@@ -50,7 +54,9 @@ void init(IDirect3DDevice9* device)
         wnd_proc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(game_hwnd, GWLP_WNDPROC, LONG_PTR(my_wndproc)));
 
         RenderTool::get().init(device);
-        
+
+        ImRender::get().init();
+
         is_init = true;
     }
 }
@@ -58,7 +64,6 @@ void init(IDirect3DDevice9* device)
 
 long __stdcall end_scane_hook::hook(IDirect3DDevice9* device)
 {
-    auto ret = HookManager::get().end_scane_original(device);
     if (!is_init)
         init(device);
 
@@ -66,10 +71,12 @@ long __stdcall end_scane_hook::hook(IDirect3DDevice9* device)
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
+    ImRender::get().render_frame();
+
     Menu::get().draw();
 
     ImGui::Render();
     ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 
-    return ret;
+    return HookManager::get().end_scane_original(device);
 }

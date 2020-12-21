@@ -2,11 +2,13 @@
 #include <singleton.h>
 #include <string>
 #include <vector>
+#include <imgui/imgui.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <game_sdk/classes/color.h>
 #include <interfaces.h>
+#include <globals.h>
 
 
 class RenderTool : public Singleton<RenderTool>
@@ -46,4 +48,18 @@ public:
 
 
 
+};
+
+
+
+class ImRender : public Singleton<ImRender>
+{
+	ImGuiIO io;
+
+public:
+	void init();
+
+	void render_frame();
+
+	void create_font_from_file(std::vector<ImFont*>& in, const char* font = "C:\\Windows\\Fonts\\Corbel.ttf", int max_size = 100, const ImWchar* glyph_ranges = NULL, const ImFontConfig* font_cfg = NULL);
 };

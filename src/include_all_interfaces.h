@@ -8,3 +8,4 @@
 #include "game_interfaces/i_surface.h"
 #include "game_interfaces/v_debug_overlay.h"
 #include "game_interfaces/i_engine_trace.h"
+#include "game_interfaces/i_event_manager.h"

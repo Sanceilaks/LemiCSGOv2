@@ -3,8 +3,8 @@
 #include <math/vector4d.h>
 #include <math/v_matrix.h>
 
-#include "game_sdk/entitys/i_client_entity.h"
-#include "game_sdk/entitys/base_player.h"
+#include <game_sdk/entitys/i_client_entity.h>
+//#include <game_sdk/entitys/base_player.h>
 
 typedef void* PVOID;
 

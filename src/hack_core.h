@@ -6,13 +6,17 @@
 typedef std::function<bool()> init_callback;
 
 
-class CHackCore
+class CHackCore : public Singleton<CHackCore>
 {
-public:
-	static bool init();
-	static bool shutdown();
 
-	static void set_pre_init(init_callback preInitFuncion);
-	static void set_post_init(init_callback prePostFuncion);
+public:
+	void* dll;
+
+	bool init();
+	bool shutdown();
+
+	void set_pre_init(init_callback preInitFuncion);
+	void set_post_init(init_callback prePostFuncion);
+
 };
 

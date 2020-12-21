@@ -14,16 +14,16 @@ bool BeforeInject(HMODULE hModule)
 
 void start()
 {
-    CHackCore::init();
+    CHackCore::get().init();
 
-    std::async(std::launch::async, []() {
-        std::string cmd;
-        while (true)
-        {
-            std::cin >> cmd;
-            CCommandExecutor::get().execute(cmd);
-        }
-        });
+    //std::async(std::launch::async, []() {
+    //    std::string cmd;
+    //    while (true)
+    //    {
+    //        std::cin >> cmd;
+    //        CCommandExecutor::get().execute(cmd);
+    //    }
+    //    });
 }
 
 
@@ -39,6 +39,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_ATTACH:
         if (BeforeInject(hModule))
             CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
+        CHackCore::get().dll = hModule;
         break;
     case DLL_PROCESS_DETACH:
         break;
